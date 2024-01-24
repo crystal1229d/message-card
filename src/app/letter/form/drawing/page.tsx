@@ -93,7 +93,7 @@ export const DrawingForm = () => {
         </div>
       </Block>
       <BlockTitle className="text-black !text-xs sm:!text-sm">
-        A.I 이미지 프롬프트 설정
+        AI 이미지 프롬프트 설정
       </BlockTitle>
       <List strongIos insetIos>
         <ListInput

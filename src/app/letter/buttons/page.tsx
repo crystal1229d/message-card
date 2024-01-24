@@ -8,6 +8,7 @@ interface ButtonsProps {
   generateAIImage: () => void
   shareOnSns: () => void
   downloadAsImage: () => void
+  captureLetter: () => void
 }
 
 export const Buttons: React.FC<ButtonsProps> = ({
@@ -18,6 +19,7 @@ export const Buttons: React.FC<ButtonsProps> = ({
   generateAIImage,
   shareOnSns,
   downloadAsImage,
+  captureLetter,
 }) => {
   const handleClickNext = () => {
     if (letterFormStep < 4) setLetterFormStep(letterFormStep + 1)
@@ -90,7 +92,7 @@ export const Buttons: React.FC<ButtonsProps> = ({
           <Button
             rounded
             className="h-[60px] text-lg tracking-widest bg-primary hover:brightness-125 cursor-pointer"
-            onClick={downloadAsImage}
+            onClick={captureLetter}
           >
             이미지로 저장
           </Button>
