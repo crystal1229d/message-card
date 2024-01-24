@@ -1,0 +1,1 @@
+export const createImagePrompt = `A illustration for a card image. Painted in [$color] color and in [$style] style. It should contain brightness, happiness, and meaning of [$keyword]. [$additionalDescription]`
