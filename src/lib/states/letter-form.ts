@@ -1,4 +1,3 @@
-import { MutableRefObject, RefObject, useRef } from 'react'
 import { LetterFormSteps } from '../constants/form'
 import {
   SelectableImageColor,
@@ -7,11 +6,9 @@ import {
   SelectableStyle,
 } from '../constants/letter'
 import { create } from 'zustand'
-import { toPng } from 'html-to-image'
 
 interface LetterFormState {
   letterFormStep: number
-  // captureSectionRef: RefObject<HTMLDivElement | null>
 
   from: string
   to: string
@@ -26,7 +23,6 @@ interface LetterFormState {
 
 const initialLetterFormState = {
   letterFormStep: 1 as LetterFormSteps,
-  // captureSectionRef: useRef<HTMLDivElement | null>(null),
 
   from: '',
   to: '',
@@ -41,7 +37,6 @@ const initialLetterFormState = {
 
 export interface LetterFormActions extends LetterFormState {
   setLetterFormStep: (letterFormStep: number) => void
-  // setCaptureSectionRef: (ref: RefObject<HTMLDivElement | null>) => void
 
   setFrom: (from: string) => void
   setTo: (to: string) => void
@@ -54,15 +49,12 @@ export interface LetterFormActions extends LetterFormState {
   resetLetter: () => void
   setImageDescription: (imageDescription: string) => void
   generateAIImage: () => void
-  downloadLetterAsImage: () => void
-  shareOnSNS: () => void
 }
 
 const useLetterFormStore = create<LetterFormState & LetterFormActions>(
   (set, get) => ({
     ...initialLetterFormState,
     setLetterFormStep: (letterFormStep) => set({ letterFormStep }),
-    // setCaptureSectionRef: (ref) => set({ captureSectionRef: ref }),
 
     setFrom: (from) => set({ from }),
     setTo: (to) => set({ to }),
@@ -96,23 +88,6 @@ const useLetterFormStore = create<LetterFormState & LetterFormActions>(
       } finally {
         set({ letterFormStep: 6 })
       }
-    },
-    downloadLetterAsImage: () => {
-      console.log('download as image')
-      // if (get().captureSectionRef.current === null) return
-      // toPng(get().captureSectionRef.current)
-      //   .then((url) => {
-      //     let link = document.createElement('a')
-      //     link.download = 'my_letter.png'
-      //     link.href = url
-      //     link.click()
-      //   })
-      //   .catch((error) => {
-      //     console.log(error)
-      //   })
-    },
-    shareOnSNS: () => {
-      console.log('share on sns')
     },
   }),
 )

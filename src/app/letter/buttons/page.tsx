@@ -7,7 +7,6 @@ interface ButtonsProps {
   resetLetter: () => void
   generateAIImage: () => void
   shareOnSns: () => void
-  downloadAsImage: () => void
   captureLetter: () => void
 }
 
@@ -18,7 +17,6 @@ export const Buttons: React.FC<ButtonsProps> = ({
   onClickStart,
   generateAIImage,
   shareOnSns,
-  downloadAsImage,
   captureLetter,
 }) => {
   const handleClickNext = () => {

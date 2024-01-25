@@ -1,5 +1,12 @@
 import type { Metadata } from 'next'
+import KakaoScript from '../components/common/KakaoScript'
 import './globals.css'
+
+declare global {
+  interface Window {
+    Kakao: any
+  }
+}
 
 export const metadata: Metadata = {
   title: 'AI 메세지카드',
@@ -25,9 +32,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {<script src="https://developers.kakao.com/sdk/js/kakao.js" />}
+        {/* {<script defer src="https://developers.kakao.com/sdk/js/kakao.js" />} */}
       </head>
       <body>{children}</body>
+      <KakaoScript />
     </html>
   )
 }

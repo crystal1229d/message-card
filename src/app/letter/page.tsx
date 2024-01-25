@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { App, Block } from 'konsta/react'
 import { Application as SplineApp } from '@splinetool/runtime'
 // import { LetterFormSpline } from '@/src/components/LetterFormSpline'
@@ -14,10 +14,11 @@ export default function LetterPage() {
   const {
     letterFormStep,
     setLetterFormStep,
+    from,
+    to,
+    message,
     resetLetter,
     generateAIImage,
-    shareOnSNS,
-    downloadLetterAsImage,
   } = useLetterFormStore()
 
   const splineRef = useRef<SplineApp | null>(null)
@@ -25,6 +26,7 @@ export default function LetterPage() {
     splineRef.current?.setVariable('isWriting', true)
   }
 
+  // TODO: 분리
   const captureSectionRef = useRef<HTMLDivElement>(null)
   const captureLetter = () => {
     if (captureSectionRef.current === null) return
@@ -34,10 +36,62 @@ export default function LetterPage() {
         link.download = 'my_letter.png'
         link.href = url
         link.click()
+        link.remove()
       })
       .catch((error) => {
         console.log(error)
       })
+  }
+
+  // TODO: 분리
+  const shareOnSns = async () => {
+    // 이미지 공유 : 이미지파일생성 -> 업로드 -> 공유 -> 삭제
+    const { Kakao } = window
+
+    if (captureSectionRef.current === null) return
+
+    try {
+      // 1. 이미지파일 생성
+      const url = await toPng(captureSectionRef.current)
+
+      // base64 data => Blob
+      const blobBin = atob(url.split(',')[1])
+      let array = []
+      for (let i = 0; i < blobBin.length; i++) {
+        array.push(blobBin.charCodeAt(i))
+      }
+      const blob = new Blob([new Uint8Array(array)], { type: 'image/png' })
+
+      // Blob => File object
+      const file = new File([blob], 'my_letter.png', {
+        type: 'image/png',
+      })
+      const imageFile = [file]
+
+      // 2. 업로드 (카카오서버)
+      const uploadedImage = await Kakao.Share.uploadImage({
+        file: imageFile,
+      })
+      const uploadedImageUrl = uploadedImage.infos.original.url
+
+      // 3. 공유
+      Kakao.Share.sendScrap({
+        requestUrl: 'http://localhost:3000', // const { location } = window; requestUrl: location.href
+        templateId: 103472,
+        templateArgs: {
+          THUMB: uploadedImageUrl,
+          TITLE: '편지가 도착했어요!',
+          CONTENT: `${from} / ${to}`,
+        },
+      })
+
+      // 4. 삭제 (카카오서버)
+      Kakao.Share.deleteImage({
+        uploadedImageUrl,
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -66,8 +120,7 @@ export default function LetterPage() {
                 resetLetter={resetLetter}
                 onClickStart={onStartWriting}
                 generateAIImage={generateAIImage}
-                shareOnSns={shareOnSNS}
-                downloadAsImage={downloadLetterAsImage}
+                shareOnSns={shareOnSns}
                 captureLetter={captureLetter}
               />
             </div>
