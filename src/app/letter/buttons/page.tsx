@@ -85,7 +85,7 @@ export const Buttons: React.FC<ButtonsProps> = ({
             className="h-[60px] text-lg tracking-widest bg-primary hover:brightness-125 cursor-pointer"
             onClick={shareOnSns}
           >
-            공유
+            카카오톡 공유
           </Button>
           <Button
             rounded

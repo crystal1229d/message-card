@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useRef } from 'react'
+import React, { useRef } from 'react'
 import { App, Block } from 'konsta/react'
 import { Application as SplineApp } from '@splinetool/runtime'
 // import { LetterFormSpline } from '@/src/components/LetterFormSpline'
@@ -16,7 +16,6 @@ export default function LetterPage() {
     setLetterFormStep,
     from,
     to,
-    message,
     resetLetter,
     generateAIImage,
   } = useLetterFormStore()
@@ -28,13 +27,20 @@ export default function LetterPage() {
 
   // TODO: 분리
   const captureSectionRef = useRef<HTMLDivElement>(null)
-  const captureLetter = () => {
+  const captureLetter = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+    event.stopPropagation()
+    console.log('event : ', event)
+    console.log('ref : ', captureSectionRef)
+    console.log('current : ', captureSectionRef.current)
     if (captureSectionRef.current === null) return
     toPng(captureSectionRef.current)
       .then((url) => {
+        // download(url, 'my_letter.png')
+        console.log('url : ', url)
         let link = document.createElement('a')
         link.download = 'my_letter.png'
-        link.href = url
+        link.href = encodeURI(url)
         link.click()
         link.remove()
       })
@@ -107,7 +113,7 @@ export default function LetterPage() {
             strong
             inset
             outline
-            className="no-scrollbar w-[750px] h-[550px] grid grid-cols-2 grid-rows-1 !relative rounded-2xl"
+            className="no-scrollbar w-[800px] h-[620px] grid grid-cols-2 grid-rows-1 !relative rounded-2xl"
           >
             <Preview captureSectionRef={captureSectionRef} />
             <div

@@ -69,22 +69,21 @@ const useLetterFormStore = create<LetterFormState & LetterFormActions>(
       set(initialLetterFormState)
     },
     generateAIImage: async () => {
+      set({ letterFormStep: 5 })
       try {
-        // set({ letterFormStep: 5 })
-        // const response = await fetch('/api/letter/create-image', {
-        //   method: 'POST',
-        //   body: JSON.stringify({
-        //     keyword: get().imageKeyword,
-        //     color: get().imageColor,
-        //     style: get().imageStyle,
-        //     additionalDescription: get().imageDescription,
-        //   }),
-        // })
-        // console.log(response)
-        // const { generatedImageUrl } = await response.json()
-        // console.log(generatedImageUrl)
-        // if (generatedImageUrl) set({ image: generatedImageUrl })
+        const response = await fetch('/api/letter/create-image', {
+          method: 'POST',
+          body: JSON.stringify({
+            keyword: get().imageKeyword,
+            color: get().imageColor,
+            style: get().imageStyle,
+            additionalDescription: get().imageDescription,
+          }),
+        })
+        const res = await response.json()
+        if (res.images.length > 0) set({ image: res.images[0].image })
       } catch (e) {
+        console.log(e)
       } finally {
         set({ letterFormStep: 6 })
       }

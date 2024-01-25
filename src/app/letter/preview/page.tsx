@@ -1,6 +1,5 @@
 import useLetterFormStore from '@/src/lib/states/letter-form'
 import { Block } from 'konsta/react'
-import Image from 'next/image'
 import React from 'react'
 
 // interface PreviewProps extends React.HTMLAttributes<HTMLDivElement> {}
@@ -11,7 +10,6 @@ interface PreviewProps {
 // export const Preview = React.forwardRef<HTMLDivElement>((captureSectionRef) => {
 export const Preview = ({ captureSectionRef }: PreviewProps) => {
   const { to, from, image, message, letterColor } = useLetterFormStore()
-
   return (
     <Block
       strong
@@ -22,10 +20,10 @@ export const Preview = ({ captureSectionRef }: PreviewProps) => {
     >
       <div
         ref={captureSectionRef}
-        className={`w-full h-full p-2 bg-white box-border grid grid-cols-1 grid-rows-[45%_3%_5%_27%_3%] gap-4`}
+        className={`w-full h-full p-2 bg-white box-border grid grid-cols-1 grid-rows-[60%_2%_4%_20%_4%] gap-3`}
       >
         {image ? (
-          <Image src={image} alt="my letter" className="rounded-md" />
+          <img src={image} alt="my letter" className="rounded-m h-fit" />
         ) : (
           <div className="bg-slate-300 rounded-md"></div>
         )}
