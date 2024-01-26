@@ -1,14 +1,15 @@
 'use client'
 
-import React, { useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import { App, Block } from 'konsta/react'
 import { Application as SplineApp } from '@splinetool/runtime'
-// import { LetterFormSpline } from '@/src/components/LetterFormSpline'
+import { LetterFormSpline } from '@/src/components/LetterFormSpline'
 import useLetterFormStore from '@/src/lib/states/letter-form'
 import { Preview } from './preview/page'
 import { LetterForm } from './form/page'
 import { Buttons } from './buttons/page'
 import { toPng } from 'html-to-image'
+import useLetterSplineStore from '@/src/lib/states/spline'
 
 export default function LetterPage() {
   const {
@@ -20,34 +21,34 @@ export default function LetterPage() {
     generateAIImage,
   } = useLetterFormStore()
 
+  const { setStatesBasedOnLetterFormStep } = useLetterSplineStore()
+
   const splineRef = useRef<SplineApp | null>(null)
+
+  useEffect(() => {
+    setStatesBasedOnLetterFormStep(letterFormStep, splineRef)
+  }, [letterFormStep, splineRef])
+
   const onStartWriting = () => {
-    splineRef.current?.setVariable('isWriting', true)
+    // splineRef.current?.setVariable('isWriting', true)
   }
 
   // TODO: 분리
   const captureSectionRef = useRef<HTMLDivElement>(null)
-  const captureLetter = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault()
-    event.stopPropagation()
-    console.log('event : ', event)
-    console.log('ref : ', captureSectionRef)
-    console.log('current : ', captureSectionRef.current)
+  const captureLetter = useCallback(() => {
     if (captureSectionRef.current === null) return
-    toPng(captureSectionRef.current)
+    toPng(captureSectionRef.current, { cacheBust: true })
       .then((url) => {
-        // download(url, 'my_letter.png')
-        console.log('url : ', url)
         let link = document.createElement('a')
         link.download = 'my_letter.png'
-        link.href = encodeURI(url)
+        link.href = url
         link.click()
         link.remove()
       })
       .catch((error) => {
         console.log(error)
       })
-  }
+  }, [captureSectionRef])
 
   // TODO: 분리
   const shareOnSns = async () => {
@@ -102,7 +103,7 @@ export default function LetterPage() {
 
   return (
     <>
-      {/* <LetterFormSpline splineRef={splineRef} /> */}
+      <LetterFormSpline splineRef={splineRef} />
       {letterFormStep !== 5 && (
         <App
           theme="ios"
@@ -113,7 +114,7 @@ export default function LetterPage() {
             strong
             inset
             outline
-            className="no-scrollbar w-[800px] h-[620px] grid grid-cols-2 grid-rows-1 !relative rounded-2xl"
+            className="no-scrollbar w-[800px] h-[600px] grid grid-cols-2 grid-rows-1 !relative rounded-2xl"
           >
             <Preview captureSectionRef={captureSectionRef} />
             <div

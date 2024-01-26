@@ -45,7 +45,7 @@ export const Buttons: React.FC<ButtonsProps> = ({
         <Button
           large
           className="h-[60px] text-lg tracking-widest bg-primary hover:brightness-125 cursor-pointer"
-          onClick={handleStart}
+          onClick={handleClickNext}
         >
           편지쓰기
         </Button>

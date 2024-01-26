@@ -9,6 +9,17 @@ export type SelectableKeyword =
   | 'Apologize'
   | 'Congratulation'
 
+export type SelectablePaperColor =
+  | 'red'
+  | 'orange'
+  | 'yellow'
+  | 'pink'
+  | 'green'
+  | 'blue'
+  | 'purple'
+  | 'white'
+  | 'black'
+
 export type SelectableLetterColor =
   | 'red'
   | 'orange'
@@ -84,55 +95,127 @@ export const letterKeywords: {
   },
 ]
 
-export const letterColors: {
+export const paperColors: {
   name: string
-  value: SelectableLetterColor
+  value: SelectablePaperColor
   bgRgba?: string
+  hex?: string
 }[] = [
   {
     name: '빨간색',
     value: 'red',
     bgRgba: 'rgba(255,0,0,0.5)',
+    hex: '#E57373',
   },
   {
     name: '주황색',
     value: 'orange',
     bgRgba: 'rgba(255,165,0,0.5)',
+    hex: '#FFD54F',
   },
   {
     name: '노란색',
     value: 'yellow',
     bgRgba: 'rgba(255,255,0,0.5)',
+    hex: '#FFF9C4',
   },
   {
     name: '분홍색',
     value: 'pink',
     bgRgba: 'rgba(255,192,203,0.5)',
+    hex: '#FCE4EC',
   },
   {
     name: '초록색',
     value: 'green',
     bgRgba: 'rgba(0,128,0,0.5)',
+    hex: '#81C784',
   },
   {
     name: '파란색',
     value: 'blue',
     bgRgba: 'rgba(0,0,255,0.5)',
+    hex: '#81D4FA',
   },
   {
     name: '보라색',
     value: 'purple',
     bgRgba: 'rgba(128,0,128,0.5)',
+    hex: '#D1C4E9',
   },
   {
     name: '검정색',
     value: 'black',
     bgRgba: 'rgba(0,0,0,0.5)',
+    hex: '#6F6F6F',
   },
   {
     name: '하얀색',
     value: 'white',
     bgRgba: 'rgba(255,255,255,0.5)',
+    hex: '#FFFFFF',
+  },
+]
+
+export const letterColors: {
+  name: string
+  value: SelectableLetterColor
+  bgRgba?: string
+  hex?: string
+}[] = [
+  {
+    name: '빨간색',
+    value: 'red',
+    bgRgba: 'rgba(255,0,0,0.5)',
+    hex: '#E53935',
+  },
+  {
+    name: '주황색',
+    value: 'orange',
+    bgRgba: 'rgba(255,165,0,0.5)',
+    hex: '#FF6F00',
+  },
+  {
+    name: '노란색',
+    value: 'yellow',
+    bgRgba: 'rgba(255,255,0,0.5)',
+    hex: '#FFEB3B',
+  },
+  {
+    name: '분홍색',
+    value: 'pink',
+    bgRgba: 'rgba(255,192,203,0.5)',
+    hex: '#F06292',
+  },
+  {
+    name: '초록색',
+    value: 'green',
+    bgRgba: 'rgba(0,128,0,0.5)',
+    hex: '#43A047',
+  },
+  {
+    name: '파란색',
+    value: 'blue',
+    bgRgba: 'rgba(0,0,255,0.5)',
+    hex: '#1976D2',
+  },
+  {
+    name: '보라색',
+    value: 'purple',
+    bgRgba: 'rgba(128,0,128,0.5)',
+    hex: '#8E24AA',
+  },
+  {
+    name: '검정색',
+    value: 'black',
+    bgRgba: 'rgba(0,0,0,0.5)',
+    hex: '#212121',
+  },
+  {
+    name: '하얀색',
+    value: 'white',
+    bgRgba: 'rgba(255,255,255,0.5)',
+    hex: '#F5F5F5',
   },
 ]
 

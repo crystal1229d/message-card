@@ -30,7 +30,7 @@ const config: Config = konstaConfig({
   konsta: {
     colors: {
       primary: '#6C0BA9',
-      'letter-red': '#fc5f53',
+      'letter-red': '#FC5F53',
       'letter-orange': '#FF993F',
       'letter-yellow': '#fff665',
       'letter-pink': '#FFC0CB',

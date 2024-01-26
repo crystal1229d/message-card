@@ -100,7 +100,7 @@ export const DrawingForm = () => {
           outline
           type="textarea"
           label="이미지 설명"
-          placeholder="생성하고 싶은 이미지에 대해 적어주세요."
+          placeholder="생성하고 싶은 이미지에 대해 영어로 적어주세요."
           inputClassName="!h-36 resize-none !text-2xs sm:!text-sm leading-relaxed"
           info={`현재 ${letterFormState.imageDescription.length}자 / 200자`}
           onChange={(event) => {

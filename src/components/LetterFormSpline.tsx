@@ -18,12 +18,9 @@ export const LetterFormSpline = (props: LetterFormSplineProps) => {
   const handleMouseDown = (event: SplineEvent) => {}
   const handleMouseMove = () => {}
 
-  // const handleIsWriting = (state: boolean) => {
-  //     splineRef.current?.setVariable('isWriting', state);
-  // }
-
   return (
     <Spline
+      className="flex items-center justify-center"
       scene={SCENE}
       onLoad={handleLoad}
       onMouseUp={handleMouseUp}
