@@ -1,7 +1,6 @@
 import { Block, Button } from 'konsta/react'
 
 interface ButtonsProps {
-  onClickStart: () => void
   letterFormStep: number
   setLetterFormStep: (letterFormStep: number) => void
   resetLetter: () => void
@@ -14,7 +13,6 @@ export const Buttons: React.FC<ButtonsProps> = ({
   letterFormStep,
   setLetterFormStep,
   resetLetter,
-  onClickStart,
   generateAIImage,
   shareOnSns,
   captureLetter,
@@ -25,31 +23,18 @@ export const Buttons: React.FC<ButtonsProps> = ({
   const handleClickPrev = () => {
     if (letterFormStep > 1) setLetterFormStep(letterFormStep - 1)
   }
-  const handleStart = () => {
-    onClickStart()
-    handleClickNext()
-  }
   const handleGenerateImage = async (e: { preventDefault: () => void }) => {
     e.preventDefault()
     generateAIImage()
   }
   const handleClickReset = () => {
-    if (letterFormStep > 1) resetLetter()
+    if (letterFormStep > 2) resetLetter()
   }
 
   return (
     <Block
       className={`grid ${letterFormStep > 1 && letterFormStep < 5 && 'grid-cols-2 grid-rows-1 gap-[40%]'} ${letterFormStep === 6 && 'grid-cols-1 grid-rows-3 gap-2'}`}
     >
-      {letterFormStep === 1 && (
-        <Button
-          large
-          className="h-[60px] text-lg tracking-widest bg-primary hover:brightness-125 cursor-pointer"
-          onClick={handleClickNext}
-        >
-          편지쓰기
-        </Button>
-      )}
       {letterFormStep > 1 && letterFormStep < 5 && (
         <Button
           tonalIos

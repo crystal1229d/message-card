@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, { useCallback, useRef } from 'react'
 import { App, Block } from 'konsta/react'
 import { Application as SplineApp } from '@splinetool/runtime'
 import { LetterFormSpline } from '@/src/components/LetterFormSpline'
@@ -9,7 +9,7 @@ import { Preview } from './preview/page'
 import { LetterForm } from './form/page'
 import { Buttons } from './buttons/page'
 import { toPng } from 'html-to-image'
-import useLetterSplineStore from '@/src/lib/states/spline'
+import { StartingForm } from './form/starting/page'
 
 export default function LetterPage() {
   const {
@@ -21,17 +21,7 @@ export default function LetterPage() {
     generateAIImage,
   } = useLetterFormStore()
 
-  const { setStatesBasedOnLetterFormStep } = useLetterSplineStore()
-
   const splineRef = useRef<SplineApp | null>(null)
-
-  useEffect(() => {
-    setStatesBasedOnLetterFormStep(letterFormStep, splineRef)
-  }, [letterFormStep, splineRef])
-
-  const onStartWriting = () => {
-    // splineRef.current?.setVariable('isWriting', true)
-  }
 
   // TODO: 분리
   const captureSectionRef = useRef<HTMLDivElement>(null)
@@ -103,8 +93,14 @@ export default function LetterPage() {
 
   return (
     <>
-      <LetterFormSpline splineRef={splineRef} />
-      {letterFormStep !== 5 && (
+      {letterFormStep === 1 && <LetterFormSpline splineRef={splineRef} />}
+      {letterFormStep === 1 && (
+        <StartingForm
+          letterFormStep={letterFormStep}
+          setLetterFormStep={setLetterFormStep}
+        />
+      )}
+      {letterFormStep !== 1 && (
         <App
           theme="ios"
           dark={false}
@@ -114,7 +110,7 @@ export default function LetterPage() {
             strong
             inset
             outline
-            className="no-scrollbar w-[800px] h-[600px] grid grid-cols-2 grid-rows-1 !relative rounded-2xl"
+            className="no-scrollbar w-[800px] h-[650px] grid grid-cols-2 grid-rows-1 !relative rounded-2xl"
           >
             <Preview captureSectionRef={captureSectionRef} />
             <div
@@ -125,7 +121,6 @@ export default function LetterPage() {
                 letterFormStep={letterFormStep}
                 setLetterFormStep={setLetterFormStep}
                 resetLetter={resetLetter}
-                onClickStart={onStartWriting}
                 generateAIImage={generateAIImage}
                 shareOnSns={shareOnSns}
                 captureLetter={captureLetter}

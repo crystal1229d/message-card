@@ -1,18 +1,30 @@
 'use client'
 
-import { Block, BlockTitle } from 'konsta/react'
-import Image from 'next/image'
-import titleImage from '../../../../../public/images/main.png'
+import { Button } from 'konsta/react'
 
-export const StartingForm: React.FC = () => {
+interface ButtonsProps {
+  letterFormStep: number
+  setLetterFormStep: (letterFormStep: number) => void
+}
+
+export const StartingForm: React.FC<ButtonsProps> = ({
+  letterFormStep,
+  setLetterFormStep,
+}) => {
+  const handleClickNext = () => {
+    if (letterFormStep < 4) setLetterFormStep(letterFormStep + 1)
+  }
+
   return (
-    <div>
-      <BlockTitle className="text-primary text-2xl mb-2 ml-[28%]">
-        AI 편지 만들기
-      </BlockTitle>
-      <Block className="no-scrollbar">
-        <Image src={titleImage} alt="letters" />
-      </Block>
+    <div className="flex justify-center items-center absolute left-[45%] bottom-[20%]">
+      <Button
+        tonalIos
+        rounded
+        className="h-[60px] w-[200px] text-lg tracking-widest backdrop-blur-sm hover:brightness-75 cursor-pointer"
+        onClick={handleClickNext}
+      >
+        편지쓰기
+      </Button>
     </div>
   )
 }
