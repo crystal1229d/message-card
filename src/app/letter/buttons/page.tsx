@@ -9,7 +9,7 @@ interface ButtonsProps {
   captureLetter: () => void
 }
 
-export const Buttons: React.FC<ButtonsProps> = ({
+const Buttons: React.FC<ButtonsProps> = ({
   letterFormStep,
   setLetterFormStep,
   resetLetter,
@@ -91,3 +91,5 @@ export const Buttons: React.FC<ButtonsProps> = ({
     </Block>
   )
 }
+
+export default Buttons
