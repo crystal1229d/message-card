@@ -1,6 +1,6 @@
 <div align='center'>
 
-  <img src='./public/images/README01.png' alt='logo' width='350' height='300' />
+  <img src='./public/README/README01.png' alt='logo' width='350' height='300' />
   <br /><br />
  
  <a href=''>
@@ -17,8 +17,7 @@ sending to dozens of friends and families... <br /><br/>
 This project aims to make the annual event <br />
 more simpler, enjoyable, and customizable. <br /><br />
 
-<img src='./public/images/README02.png' alt='example' width='200' height='300' />
-<img src='./public/images/README03.png' alt='example' width='200' height='300' />
+<img src='./public/README/preview01.png' alt='preview' width='300' height='500' />
 
 <br />
 
@@ -31,7 +30,11 @@ This project allows users customize the postcard, write messages, and get a appr
 
 ## Preview
 
-<img src='./public/README/resufolio.gif' alt='preview' />
+<div align='center'>
+
+<img src='./public/README/preview02.gif' alt='preview' />
+
+</div>
 
 <br />
 
@@ -62,6 +65,7 @@ This project allows users customize the postcard, write messages, and get a appr
 
 ## TODO
 
+- 배포
 - <버그> '새로작성'후 사진으로저장 혹은 카카오톡 공유 시, 이전에 그려진 이미지가 저장됨
 - Spline 수정 (작업중인 노트북으로는 세밀한 수정 불가능..)
 - 테스트코드 작성
