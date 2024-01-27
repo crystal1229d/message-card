@@ -62,6 +62,13 @@ which can be saved as an image or shared on SNS.</h4>
 
 <br />
 
+## `.env`
+
+NEXT_PUBLIC_KAKAO_API_KEY={kakao_js_api_key }
+NEXT_PUBLIC_KAKAO_RESTAPI_KEY={kakao_rest_api_key}
+
+<br />
+
 ## TODO
 
 - 배포
