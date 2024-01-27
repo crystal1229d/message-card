@@ -64,7 +64,7 @@ export const POST = async (req: NextRequest) => {
       {
         method: 'POST',
         headers: {
-          Authorization: `KakaoAK ${process.env.NEXT_PubliC_KAKAO_RESTAPI_KEY}`,
+          Authorization: `KakaoAK ${process.env.NEXT_PUBLIC_KAKAO_RESTAPI_KEY}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
