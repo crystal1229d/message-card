@@ -1,3 +1,4 @@
+import { MutableRefObject } from 'react'
 import { LetterFormSteps } from '../constants/form'
 import {
   SelectableImageColor,
@@ -7,6 +8,7 @@ import {
   SelectableStyle,
 } from '../constants/letter'
 import { create } from 'zustand'
+import { toPng } from 'html-to-image'
 
 interface LetterFormState {
   letterFormStep: number
@@ -53,9 +55,12 @@ export interface LetterFormActions extends LetterFormState {
   setImageKeyword: (imageKeyword: string) => void
   setImageColor: (imageColor: string) => void
   setImageStyle: (imageStyle: string) => void
-  resetLetter: () => void
   setImageDescription: (imageDescription: string) => void
+  resetLetter: () => void
+
   generateAIImage: () => void
+  exportToImage: (ref: MutableRefObject<HTMLDivElement | null>) => void
+  shareOnSns: (ref: MutableRefObject<HTMLDivElement | null>) => void
 }
 
 const useLetterFormStore = create<LetterFormState & LetterFormActions>(
@@ -76,7 +81,9 @@ const useLetterFormStore = create<LetterFormState & LetterFormActions>(
     setImageDescription: (imageDescription) => set({ imageDescription }),
     resetLetter: () => {
       set(initialLetterFormState)
+      set({ letterFormStep: 2 })
     },
+
     generateAIImage: async () => {
       set({ letterFormStep: 5 })
       try {
@@ -95,6 +102,69 @@ const useLetterFormStore = create<LetterFormState & LetterFormActions>(
         console.log(e)
       } finally {
         set({ letterFormStep: 6 })
+      }
+    },
+    exportToImage: (ref) => {
+      if (ref.current === null) return
+      toPng(ref.current, { cacheBust: true })
+        .then((url) => {
+          let link = document.createElement('a')
+          link.download = 'my_letter.png'
+          link.href = url
+          link.click()
+          link.remove()
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    shareOnSns: async (ref) => {
+      // 이미지 공유 : 이미지파일생성 -> 업로드 -> 공유 -> 삭제
+      const { Kakao } = window
+
+      if (ref.current === null) return
+
+      try {
+        // 1. 이미지파일 생성
+        const url = await toPng(ref.current)
+
+        // base64 data => Blob
+        const blobBin = atob(url.split(',')[1])
+        let array = []
+        for (let i = 0; i < blobBin.length; i++) {
+          array.push(blobBin.charCodeAt(i))
+        }
+        const blob = new Blob([new Uint8Array(array)], { type: 'image/png' })
+
+        // Blob => File object
+        const file = new File([blob], 'my_letter.png', {
+          type: 'image/png',
+        })
+        const imageFile = [file]
+
+        // 2. 업로드 (카카오서버)
+        const uploadedImage = await Kakao.Share.uploadImage({
+          file: imageFile,
+        })
+        const uploadedImageUrl = uploadedImage.infos.original.url
+
+        // 3. 공유
+        Kakao.Share.sendScrap({
+          requestUrl: 'http://localhost:3000', // const { location } = window; requestUrl: location.href
+          templateId: 103472,
+          templateArgs: {
+            THUMB: uploadedImageUrl,
+            TITLE: '편지가 도착했어요!',
+            CONTENT: `${get().from} / ${get().to}`,
+          },
+        })
+
+        // 4. 삭제 (카카오서버)
+        Kakao.Share.deleteImage({
+          uploadedImageUrl,
+        })
+      } catch (error) {
+        console.log(error)
       }
     },
   }),

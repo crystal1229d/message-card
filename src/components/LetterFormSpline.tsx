@@ -3,6 +3,7 @@
 import Spline, { SplineEvent } from '@splinetool/react-spline'
 import { Application as SplineApp } from '@splinetool/runtime'
 import { SCENE } from '../lib/constants/spline'
+import useLetterSplineStore from '../lib/states/spline'
 
 export interface LetterFormSplineProps {
   splineRef: React.MutableRefObject<SplineApp | null>
@@ -11,19 +12,18 @@ export interface LetterFormSplineProps {
 export const LetterFormSpline: React.FC<LetterFormSplineProps> = ({
   splineRef,
 }) => {
-  // splineRef.current?.setVariable('isWriting', true)
+  const { setIsSplineRendered, isLightOn } = useLetterSplineStore()
+
   const handleLoad = (spline: SplineApp) => {
     if (spline) splineRef.current = spline
   }
   const handleMouseUp = (event: SplineEvent) => {}
   const handleMouseDown = (event: SplineEvent) => {
-    console.log(event.target.name)
-    if (event.target.name === 'lamp button') {
-      // postboxPageActions.setIsSplineLoaded(true)
-      // postboxPageActions.setIsLetterPressed(true)
-    }
+    // if (event.target.name === 'lamp button') {
+    //   splineRef.current?.setVariable('isLightOn', !isLightOn)
+    // }
   }
-  const handleMouseMove = () => {}
+  const handleMouseMove = () => setIsSplineRendered(true)
 
   return (
     <Spline

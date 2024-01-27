@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback, useRef } from 'react'
+import React, { useRef } from 'react'
 import { App, Block } from 'konsta/react'
 import { Application as SplineApp } from '@splinetool/runtime'
 import { LetterFormSpline } from '@/src/components/LetterFormSpline'
@@ -8,97 +8,38 @@ import useLetterFormStore from '@/src/lib/states/letter-form'
 import { Preview } from './preview/page'
 import { LetterForm } from './form/page'
 import { Buttons } from './buttons/page'
-import { toPng } from 'html-to-image'
 import { StartingForm } from './form/starting/page'
+import useLetterSplineStore from '@/src/lib/states/spline'
 
 export default function LetterPage() {
   const {
     letterFormStep,
     setLetterFormStep,
-    from,
-    to,
     resetLetter,
     generateAIImage,
+    exportToImage,
+    shareOnSns,
   } = useLetterFormStore()
 
   const splineRef = useRef<SplineApp | null>(null)
+  const { isSplineRendered } = useLetterSplineStore()
+  const isLightOn = Boolean(splineRef.current?.getVariable('isLightOn'))
 
-  // TODO: 분리
   const captureSectionRef = useRef<HTMLDivElement>(null)
-  const captureLetter = useCallback(() => {
-    if (captureSectionRef.current === null) return
-    toPng(captureSectionRef.current, { cacheBust: true })
-      .then((url) => {
-        let link = document.createElement('a')
-        link.download = 'my_letter.png'
-        link.href = url
-        link.click()
-        link.remove()
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }, [captureSectionRef])
-
-  // TODO: 분리
-  const shareOnSns = async () => {
-    // 이미지 공유 : 이미지파일생성 -> 업로드 -> 공유 -> 삭제
-    const { Kakao } = window
-
-    if (captureSectionRef.current === null) return
-
-    try {
-      // 1. 이미지파일 생성
-      const url = await toPng(captureSectionRef.current)
-
-      // base64 data => Blob
-      const blobBin = atob(url.split(',')[1])
-      let array = []
-      for (let i = 0; i < blobBin.length; i++) {
-        array.push(blobBin.charCodeAt(i))
-      }
-      const blob = new Blob([new Uint8Array(array)], { type: 'image/png' })
-
-      // Blob => File object
-      const file = new File([blob], 'my_letter.png', {
-        type: 'image/png',
-      })
-      const imageFile = [file]
-
-      // 2. 업로드 (카카오서버)
-      const uploadedImage = await Kakao.Share.uploadImage({
-        file: imageFile,
-      })
-      const uploadedImageUrl = uploadedImage.infos.original.url
-
-      // 3. 공유
-      Kakao.Share.sendScrap({
-        requestUrl: 'http://localhost:3000', // const { location } = window; requestUrl: location.href
-        templateId: 103472,
-        templateArgs: {
-          THUMB: uploadedImageUrl,
-          TITLE: '편지가 도착했어요!',
-          CONTENT: `${from} / ${to}`,
-        },
-      })
-
-      // 4. 삭제 (카카오서버)
-      Kakao.Share.deleteImage({
-        uploadedImageUrl,
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
   return (
     <>
-      {letterFormStep === 1 && <LetterFormSpline splineRef={splineRef} />}
       {letterFormStep === 1 && (
-        <StartingForm
-          letterFormStep={letterFormStep}
-          setLetterFormStep={setLetterFormStep}
-        />
+        <>
+          <LetterFormSpline splineRef={splineRef} />
+          {isSplineRendered && (
+            <StartingForm
+              letterFormStep={letterFormStep}
+              isLightOn={isLightOn}
+              setLetterFormStep={setLetterFormStep}
+            />
+          )}
+        </>
       )}
       {letterFormStep !== 1 && (
         <App
@@ -122,8 +63,8 @@ export default function LetterPage() {
                 setLetterFormStep={setLetterFormStep}
                 resetLetter={resetLetter}
                 generateAIImage={generateAIImage}
-                shareOnSns={shareOnSns}
-                captureLetter={captureLetter}
+                shareOnSns={() => shareOnSns(captureSectionRef)}
+                captureLetter={() => exportToImage(captureSectionRef)}
               />
             </div>
           </Block>

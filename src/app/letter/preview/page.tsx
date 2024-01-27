@@ -4,7 +4,6 @@ import { Block } from 'konsta/react'
 import Image from 'next/image'
 import React from 'react'
 
-// interface PreviewProps extends React.HTMLAttributes<HTMLDivElement> {}
 interface PreviewProps {
   captureSectionRef: React.RefObject<HTMLDivElement>
 }

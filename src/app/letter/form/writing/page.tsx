@@ -61,9 +61,9 @@ export const WritingForm: React.FC = () => {
             inputClassName="!h-32 resize-none max-w-xs sm:max-w-none !text-2xs sm:!text-xs md:!text-sm leading-relaxed"
             info={`현재 ${letterFormState.message.length}자 / 80자`}
             onChange={(event) => {
-              // * 메세지 길이 80자로 제한
-              if (event.target.value.length > 80) {
-                event.target.value = event.target.value.slice(0, 80)
+              // * 메세지 길이 60자로 제한
+              if (event.target.value.length > 60) {
+                event.target.value = event.target.value.slice(0, 60)
                 return
               }
 
@@ -77,15 +77,15 @@ export const WritingForm: React.FC = () => {
                 return
               }
 
-              // * 한 줄에 19자가 넘어가는 줄이 있으면 그 줄 19자까지만 입력
+              // * 한 줄에 15자가 넘어가는 줄이 있으면 그 줄 15자까지만 입력
               if (
                 event.target.value
                   .split('\n')
-                  .some((line: string) => line.length > 19)
+                  .some((line: string) => line.length > 15)
               ) {
                 event.target.value = event.target.value
                   .split('\n')
-                  .map((line: string) => line.slice(0, 19))
+                  .map((line: string) => line.slice(0, 15))
                   .join('\n')
                 letterFormState.setMessage(event.target.value)
                 return

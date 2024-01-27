@@ -22,6 +22,7 @@ const config: Config = konstaConfig({
         'letter-black': '#6F6F6F',
         'letter-white': '#E8E8E4',
       },
+      keyframes: {},
     },
   },
   variants: {

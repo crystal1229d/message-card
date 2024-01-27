@@ -6,11 +6,11 @@ export const GeneratingForm: React.FC = () => {
   return (
     <div className="h-full flex items-center justify-center text-black">
       <Block>
-        <p className="text-center text-2xl leading-10">
+        <p className="text-center text-lg leading-10">
           🖼️ 그림을 그리는 중이예요 🎨
         </p>
         <br />
-        <p className="text-center text-lg break-al leading-7">
+        <p className="text-center text-md break-al leading-7">
           <br />
           나만의 그림을 <br />
           그리는 중이예요
