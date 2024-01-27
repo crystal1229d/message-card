@@ -9,7 +9,7 @@ interface ButtonsProps {
   captureLetter: () => void
 }
 
-export const Buttons = ({
+const Buttons = ({
   letterFormStep,
   setLetterFormStep,
   resetLetter,
@@ -91,3 +91,5 @@ export const Buttons = ({
     </Block>
   )
 }
+
+export default Buttons
