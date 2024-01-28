@@ -1,4 +1,5 @@
 import { Block, Button } from 'konsta/react'
+import { NextPage } from 'next'
 
 interface ButtonsProps {
   letterFormStep: number
@@ -9,14 +10,14 @@ interface ButtonsProps {
   captureLetter: () => void
 }
 
-const Buttons = ({
+const Buttons: NextPage<ButtonsProps> = ({
   letterFormStep,
   setLetterFormStep,
   resetLetter,
   generateAIImage,
   shareOnSns,
   captureLetter,
-}: ButtonsProps) => {
+}) => {
   const handleClickNext = () => {
     if (letterFormStep < 4) setLetterFormStep(letterFormStep + 1)
   }
