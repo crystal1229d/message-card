@@ -9,7 +9,7 @@ import { Preview } from './preview/page'
 import { LetterForm } from './form/page'
 import { StartingForm } from './form/starting/page'
 import useLetterSplineStore from '@/src/lib/states/spline'
-import Buttons from './buttons/page'
+import { Buttons } from './buttons/page'
 
 export default function LetterPage() {
   const {

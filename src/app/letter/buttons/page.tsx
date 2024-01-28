@@ -10,7 +10,7 @@ interface ButtonsProps {
   captureLetter: () => void
 }
 
-const Buttons: NextPage<ButtonsProps> = ({
+export const Buttons: NextPage<ButtonsProps> = ({
   letterFormStep,
   setLetterFormStep,
   resetLetter,
@@ -92,5 +92,3 @@ const Buttons: NextPage<ButtonsProps> = ({
     </Block>
   )
 }
-
-export default Buttons
