@@ -1,5 +1,4 @@
 import { Block, Button } from 'konsta/react'
-import { NextPage } from 'next'
 
 interface ButtonsProps {
   letterFormStep: number
@@ -10,7 +9,7 @@ interface ButtonsProps {
   captureLetter: () => void
 }
 
-export const Buttons: NextPage<ButtonsProps> = ({
+const Buttons: React.FC<ButtonsProps> = ({
   letterFormStep,
   setLetterFormStep,
   resetLetter,
@@ -92,3 +91,5 @@ export const Buttons: NextPage<ButtonsProps> = ({
     </Block>
   )
 }
+
+export default Buttons
