@@ -65,18 +65,18 @@ which can be saved as an image or shared on SNS.</h4>
 ## `.env`
 
 NEXT_PUBLIC_KAKAO_API_KEY={kakao_js_api_key }
+<br />
 NEXT_PUBLIC_KAKAO_RESTAPI_KEY={kakao_rest_api_key}
 
 <br />
 
 ## TODO
 
-- 배포
+- 배포 (`vercel`)
 - <버그> '새로작성'후 사진으로저장 혹은 카카오톡 공유 시, 이전에 그려진 이미지가 저장됨
 - Spline 수정 (작업중인 노트북으로는 세밀한 수정 불가능..)
   - 초기화면 '편지쓰기' 버튼 수정
-  - 이미지생성 로딩화면 수정
-- 테스트코드 작성
+- 온보딩 로딩화면 및 이미지생성 로딩화면 수정
 - 편지지패턴 선택
 - SNS 공유: Twitter 추가
 - 코드 정리
