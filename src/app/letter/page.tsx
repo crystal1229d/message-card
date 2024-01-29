@@ -9,7 +9,7 @@ import { Preview } from './preview/page'
 import { LetterForm } from './form/page'
 import { StartingForm } from './form/starting/page'
 import useLetterSplineStore from '@/src/lib/states/spline'
-import Buttons from './buttons/page'
+import ButtonPage from './buttons/page'
 
 export default function LetterPage() {
   const {
@@ -58,7 +58,7 @@ export default function LetterPage() {
               className={`h-full bg-violet-50 rounded-md ${letterFormStep === 6 ? 'flex flex-col justify-between' : 'grid grid-cols-1 grid-rows-[80%_20%]'} backdrop-blur-lg`}
             >
               <LetterForm letterFormStep={letterFormStep} />
-              <Buttons
+              <ButtonPage
                 letterFormStep={letterFormStep}
                 setLetterFormStep={setLetterFormStep}
                 resetLetter={resetLetter}
