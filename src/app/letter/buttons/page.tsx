@@ -11,14 +11,14 @@ interface ButtonsProps {
   captureLetter: () => void
 }
 
-const Buttons: React.FC<ButtonsProps> = ({
+const Buttons = ({
   letterFormStep,
   setLetterFormStep,
   resetLetter,
   generateAIImage,
   shareOnSns,
   captureLetter,
-}) => {
+}: ButtonsProps) => {
   const handleClickNext = () => {
     if (letterFormStep < 4) setLetterFormStep(letterFormStep + 1)
   }
