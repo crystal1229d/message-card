@@ -1,3 +1,5 @@
+'use client'
+
 import { letterColors, paperColors } from '@/src/lib/constants/letter'
 import useLetterFormStore from '@/src/lib/states/letter-form'
 import { Block } from 'konsta/react'
