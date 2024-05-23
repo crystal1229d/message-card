@@ -8,7 +8,7 @@ import {
 import useLetterFormStore from '@/src/lib/states/letter-form'
 import { Block, BlockTitle, Button, List, ListInput } from 'konsta/react'
 
-export const DrawingForm = () => {
+export default function DrawingForm() {
   const letterFormState = useLetterFormStore()
 
   return (

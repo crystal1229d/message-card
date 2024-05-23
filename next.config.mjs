@@ -2,6 +2,7 @@
 const nextConfig = {
   images: {
     domains: ['mk.kakaocdn.net'],
+    minimumCacheTTL: 10,
   },
 }
 

@@ -1,6 +1,6 @@
 'use client'
 
-import { Block, Button } from 'konsta/react'
+import { Button } from 'konsta/react'
 
 interface ButtonsProps {
   letterFormStep: number
@@ -8,11 +8,11 @@ interface ButtonsProps {
   setLetterFormStep: (letterFormStep: number) => void
 }
 
-export const StartingForm: React.FC<ButtonsProps> = ({
+export default function StartingForm({
   letterFormStep,
   isLightOn,
   setLetterFormStep,
-}) => {
+}: ButtonsProps) {
   const handleClickNext = () => {
     if (letterFormStep < 4) setLetterFormStep(letterFormStep + 1)
   }

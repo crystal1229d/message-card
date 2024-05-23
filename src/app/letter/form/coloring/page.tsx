@@ -4,7 +4,7 @@ import { letterColors, paperColors } from '@/src/lib/constants/letter'
 import useLetterFormStore from '@/src/lib/states/letter-form'
 import { Block, BlockTitle, Button } from 'konsta/react'
 
-export const ColoringForm = () => {
+export default function ColoringForm() {
   const letterFormState = useLetterFormStore()
 
   return (

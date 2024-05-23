@@ -5,21 +5,15 @@ import { App, Block } from 'konsta/react'
 import { Application as SplineApp } from '@splinetool/runtime'
 import { LetterFormSpline } from '@/src/components/LetterFormSpline'
 import useLetterFormStore from '@/src/lib/states/letter-form'
-import { Preview } from './preview/page'
+
 import { LetterForm } from './form/page'
 import { StartingForm } from './form/starting/page'
 import useLetterSplineStore from '@/src/lib/states/spline'
-import ButtonPage from './buttons/page'
+import Buttons from './buttons/page'
+import Preview from './preview/page'
 
 export default function LetterPage() {
-  const {
-    letterFormStep,
-    setLetterFormStep,
-    resetLetter,
-    generateAIImage,
-    exportToImage,
-    shareOnSns,
-  } = useLetterFormStore()
+  const { letterFormStep, setLetterFormStep } = useLetterFormStore()
 
   const splineRef = useRef<SplineApp | null>(null)
   const { isSplineRendered } = useLetterSplineStore()
@@ -58,13 +52,10 @@ export default function LetterPage() {
               className={`h-full bg-violet-50 rounded-md ${letterFormStep === 6 ? 'flex flex-col justify-between' : 'grid grid-cols-1 grid-rows-[80%_20%]'} backdrop-blur-lg`}
             >
               <LetterForm letterFormStep={letterFormStep} />
-              <ButtonPage
+              <Buttons
                 letterFormStep={letterFormStep}
                 setLetterFormStep={setLetterFormStep}
-                resetLetter={resetLetter}
-                generateAIImage={generateAIImage}
-                shareOnSns={() => shareOnSns(captureSectionRef)}
-                captureLetter={() => exportToImage(captureSectionRef)}
+                captureSectionRef={captureSectionRef}
               />
             </div>
           </Block>

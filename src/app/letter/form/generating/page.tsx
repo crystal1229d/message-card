@@ -2,7 +2,7 @@
 
 import { Block } from 'konsta/react'
 
-export const GeneratingForm: React.FC = () => {
+export default function GeneratingForm() {
   return (
     <div className="h-full flex items-center justify-center text-black">
       <Block>

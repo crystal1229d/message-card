@@ -1,7 +1,7 @@
 'use client'
 
 import { WritingForm } from './writing/page'
-import { ColoringForm } from './coloring/page'
+import ColoringForm from './coloring/page'
 import { DrawingForm } from './drawing/page'
 import { GeneratingForm } from './generating/page'
 import { SealingForm } from './sealing/page'

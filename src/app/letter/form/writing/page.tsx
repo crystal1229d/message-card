@@ -3,7 +3,7 @@
 import useLetterFormStore from '@/src/lib/states/letter-form'
 import { Block, BlockTitle, List, ListInput } from 'konsta/react'
 
-export const WritingForm: React.FC = () => {
+export default function WritingForm() {
   const letterFormState = useLetterFormStore()
 
   return (

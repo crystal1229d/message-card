@@ -79,6 +79,7 @@ const useLetterFormStore = create<LetterFormState & LetterFormActions>(
     setImageColor: (imageColor) => set({ imageColor }),
     setImageStyle: (imageStyle) => set({ imageStyle }),
     setImageDescription: (imageDescription) => set({ imageDescription }),
+
     resetLetter: () => {
       set(initialLetterFormState)
       set({ letterFormStep: 2 })
@@ -106,7 +107,7 @@ const useLetterFormStore = create<LetterFormState & LetterFormActions>(
     },
     exportToImage: (ref) => {
       if (ref.current === null) return
-      toPng(ref.current, { cacheBust: true })
+      toPng(ref.current, { cacheBust: false })
         .then((url) => {
           let link = document.createElement('a')
           link.download = 'my_letter.png'

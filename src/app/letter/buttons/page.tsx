@@ -1,35 +1,36 @@
 'use client'
 
+import useLetterFormStore from '@/src/lib/states/letter-form'
 import { Block, Button } from 'konsta/react'
-import { NextPage } from 'next'
+import { MutableRefObject } from 'react'
 
 interface ButtonsProps {
   letterFormStep: number
   setLetterFormStep: (letterFormStep: number) => void
-  resetLetter: () => void
-  generateAIImage: () => void
-  shareOnSns: () => void
-  captureLetter: () => void
+  captureSectionRef: MutableRefObject<HTMLDivElement | null>
 }
 
-const ButtonPage: NextPage<ButtonsProps> = ({
+export default function Buttons({
   letterFormStep,
   setLetterFormStep,
-  resetLetter,
-  generateAIImage,
-  shareOnSns,
-  captureLetter,
-}) => {
+  captureSectionRef,
+}: ButtonsProps) {
+  const { resetLetter, generateAIImage, exportToImage, shareOnSns } =
+    useLetterFormStore()
+
   const handleClickNext = () => {
     if (letterFormStep < 4) setLetterFormStep(letterFormStep + 1)
   }
+
   const handleClickPrev = () => {
     if (letterFormStep > 1) setLetterFormStep(letterFormStep - 1)
   }
+
   const handleGenerateImage = async (e: { preventDefault: () => void }) => {
     e.preventDefault()
     generateAIImage()
   }
+
   const handleClickReset = () => {
     if (letterFormStep > 2) resetLetter()
   }
@@ -71,14 +72,14 @@ const ButtonPage: NextPage<ButtonsProps> = ({
           <Button
             rounded
             className="h-[60px] text-lg tracking-widest bg-primary hover:brightness-125 cursor-pointer"
-            onClick={shareOnSns}
+            onClick={() => shareOnSns(captureSectionRef)}
           >
             카카오톡 공유
           </Button>
           <Button
             rounded
             className="h-[60px] text-lg tracking-widest bg-primary hover:brightness-125 cursor-pointer"
-            onClick={captureLetter}
+            onClick={() => exportToImage(captureSectionRef)}
           >
             이미지로 저장
           </Button>
@@ -94,5 +95,3 @@ const ButtonPage: NextPage<ButtonsProps> = ({
     </Block>
   )
 }
-
-export default ButtonPage

@@ -2,14 +2,14 @@ import { letterColors, paperColors } from '@/src/lib/constants/letter'
 import useLetterFormStore from '@/src/lib/states/letter-form'
 import { Block } from 'konsta/react'
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 interface PreviewProps {
   captureSectionRef: React.RefObject<HTMLDivElement>
 }
 
 // export const Preview = React.forwardRef<HTMLDivElement>((captureSectionRef) => {
-export const Preview = ({ captureSectionRef }: PreviewProps) => {
+export default function Preview({ captureSectionRef }: PreviewProps) {
   const { to, from, image, message, paperColor, letterColor } =
     useLetterFormStore()
 
@@ -20,6 +20,10 @@ export const Preview = ({ captureSectionRef }: PreviewProps) => {
   const selectedLetterColor = letterColors.find(
     (color) => color.value === letterColor,
   )
+
+  useEffect(() => {
+    console.log('image 변경됨 : ', image)
+  }, [image])
 
   return (
     <Block
